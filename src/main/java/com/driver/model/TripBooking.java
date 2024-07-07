@@ -34,7 +34,7 @@ public class TripBooking {
     public TripBooking() {
     }
 
-    public TripBooking(Customer customer, String fromLocation, String toLocation, Integer distanceInKm) {
+    public TripBooking(Customer customer, String fromLocation, String toLocation, int distanceInKm) {
         this.customer = customer;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
