@@ -6,20 +6,21 @@ public class TripBooking {
 
     @Id
     private Integer tripBookingId;
-    private TripStatus tripStatus;
-    private Integer customerId;
-    private Integer driverId;
+    private TripStatus status;
+    private Customer customer;
+    private Driver driver;
     private String fromLocation;
     private String toLocation;
     private Integer distanceInKm;
+    private Integer bill;
 
 
-    public TripBooking(Integer customerId, String fromLocation, String toLocation, Integer distanceInKm) {
-        this.customerId = customerId;
+    public TripBooking(Customer customer, String fromLocation, String toLocation, Integer distanceInKm) {
+        this.customer = customer;
         this.fromLocation = fromLocation;
         this.toLocation = toLocation;
         this.distanceInKm = distanceInKm;
-        tripStatus = TripStatus.CONFIRMED;
+        status = TripStatus.CONFIRMED;
     }
 
     public Integer getTripBookingId() {
@@ -30,20 +31,20 @@ public class TripBooking {
         this.tripBookingId = tripBookingId;
     }
 
-    public TripStatus getTripStatus() {
-        return tripStatus;
+    public TripStatus getStatus() {
+        return status;
     }
 
-    public void setTripStatus(TripStatus tripStatus) {
-        this.tripStatus = tripStatus;
+    public void setStatus(TripStatus status) {
+        this.status = status;
     }
 
-    public Integer getCustomerID() {
-        return this.customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomer(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public String getFromLocation() {
@@ -70,12 +71,16 @@ public class TripBooking {
         this.distanceInKm = distanceInKm;
     }
 
-    public Integer getDriverId() {
-        return driverId;
+    public Driver getDriver() {
+        return driver;
     }
 
-    public void setDriverId(Integer driverId) {
-        this.driverId = driverId;
+    public void setDriver(Driver driver) {
+        this.driver = driver;
+    }
+
+    public Integer getBill(){
+        return distanceInKm * driver.getCab().getRatePerKm();
     }
 
 }
