@@ -1,5 +1,6 @@
 package com.driver.services.impl;
 
+import com.driver.model.Cab;
 import com.driver.model.TripBooking;
 import com.driver.services.CustomerService;
 
@@ -46,7 +47,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public TripBooking bookTrip(int customerId, String fromLocation, String toLocation, int distanceInKm) throws Exception {
         Customer customer = customerRepository2.getOne(customerId);
-        TripBooking tripBooking = new TripBooking(customer, fromLocation, toLocation, distanceInKm);
         List<Driver> drivers = driverRepository2.findAll();
 
         Driver driver = null;
@@ -63,9 +63,11 @@ public class CustomerServiceImpl implements CustomerService {
         if (null == driver) {
             throw new Exception("No cab available!");
         }
-        tripBooking.setDriver(driver);
+        TripBooking tripBooking = new TripBooking(customer, fromLocation, toLocation, distanceInKm, driver);
         tripBookingRepository2.save(tripBooking);
-        driver.getCab().setAvailable(false);
+        Cab cab = driver.getCab();
+        cab.setAvailable(false);
+        driver.setCab(cab);
         driverRepository2.save(driver);
         return tripBooking;
         //Book the driver with lowest driverId who is free (cab available variable is Boolean.TRUE). If no driver is available, throw "No cab available!" exception
@@ -79,8 +81,10 @@ public class CustomerServiceImpl implements CustomerService {
 		trip.setStatus(TripStatus.CANCELED);
 		tripBookingRepository2.save(trip);
 		Driver driver = trip.getDriver();
-		driver.getCab().setAvailable(true);
-		driverRepository2.save(driver);
+        Cab cab = driver.getCab();
+        cab.setAvailable(false);
+        driver.setCab(cab);
+        driverRepository2.save(driver);
         //Cancel the trip having given trip Id and update TripBooking attributes accordingly
 
     }
@@ -91,8 +95,10 @@ public class CustomerServiceImpl implements CustomerService {
 		trip.setStatus(TripStatus.COMPLETED);
 		tripBookingRepository2.save(trip);
 		Driver driver = trip.getDriver();
-		driver.getCab().setAvailable(true);
-		driverRepository2.save(driver);
+        Cab cab = driver.getCab();
+        cab.setAvailable(false);
+        driver.setCab(cab);
+        driverRepository2.save(driver);
         //Complete the trip having given trip Id and update TripBooking attributes accordingly
     }
 

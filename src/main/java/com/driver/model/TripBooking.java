@@ -42,6 +42,15 @@ public class TripBooking {
         status = TripStatus.CONFIRMED;
     }
 
+    public TripBooking(Customer customer, String fromLocation, String toLocation, int distanceInKm, Driver driver) {
+        this.customer = customer;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.distanceInKm = distanceInKm;
+        this.driver = driver;
+        status = TripStatus.CONFIRMED;
+    }
+
     public Integer getTripBookingId() {
         return tripBookingId;
     }
