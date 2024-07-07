@@ -1,19 +1,35 @@
 package com.driver.model;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
+@Entity
 public class TripBooking {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tripBookingId;
+    @Enumerated(value = EnumType.STRING)
     private TripStatus status;
-    private Customer customer;
-    private Driver driver;
     private String fromLocation;
     private String toLocation;
     private Integer distanceInKm;
     private Integer bill;
+    //it is child w.r.t Customer
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
 
+    //it is child w.r.t Driver
+    @ManyToOne
+    @JoinColumn
+    private Driver driver;
 
     public TripBooking(Customer customer, String fromLocation, String toLocation, Integer distanceInKm) {
         this.customer = customer;
@@ -80,7 +96,11 @@ public class TripBooking {
     }
 
     public Integer getBill(){
-        return distanceInKm * driver.getCab().getPerKmRate();
+        return bill;
+    }
+
+    public void setBill(Integer bill){
+        this.bill = bill;
     }
 
 }

@@ -1,14 +1,31 @@
 package com.driver.model;
 
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Driver {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer driverId;
     private String mobile;
     private String password;
+
+    @OneToOne
+    @JoinColumn
     private Cab cab;
+
+    @OneToMany
+    private List<TripBooking> tripBookingList=new ArrayList<>();
 
     public Driver() {
     }
@@ -49,5 +66,13 @@ public class Driver {
 
     public void setDriverId(Integer driverId) {
         this.driverId = driverId;
+    }
+
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
     }
 }
