@@ -1,9 +1,12 @@
 package com.driver.model;
 
-import io.swagger.models.auth.In;
+import javax.persistence.Id;
+
 
 public class Cab {
 
+    @Id
+    private Integer id;
     private Integer ratePerKm = 10;
     private boolean availability = true;
 
@@ -13,7 +16,7 @@ public class Cab {
         this.availability = availability;
     }
 
-    public Integer getRatePerKm() {
+    public Integer getPerKmRate() {
         return ratePerKm;
     }
 
@@ -25,7 +28,18 @@ public class Cab {
         this.availability = availability;
     }
 
-    public void setRatePerKm(Integer ratePerKm) {
+    public void setPerKmRate(Integer ratePerKm) {
         this.ratePerKm = ratePerKm;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+
+
 }

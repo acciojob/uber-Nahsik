@@ -80,7 +80,7 @@ public class TripBooking {
     }
 
     public Integer getBill(){
-        return distanceInKm * driver.getCab().getRatePerKm();
+        return distanceInKm * driver.getCab().getPerKmRate();
     }
 
 }

@@ -10,6 +10,9 @@ public class Driver {
     private String password;
     private Cab cab;
 
+    public Driver() {
+    }
+
     public Driver(String mobile, String password, Cab cab) {
         this.mobile = mobile;
         this.password = password;
@@ -42,5 +45,9 @@ public class Driver {
 
     public void setCab(Cab cab) {
         this.cab = cab;
+    }
+
+    public void setDriverId(Integer driverId) {
+        this.driverId = driverId;
     }
 }
